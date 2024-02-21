@@ -1,7 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
+// reducers
+import drumReducer from "./components/DrumMachine/drumReducer";
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    drumReducer: drumReducer,
+  },
 });
 
 export default store;
