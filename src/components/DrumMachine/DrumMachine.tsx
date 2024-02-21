@@ -12,6 +12,7 @@ import logo from "/music-solid.svg";
 export default function DrumMachine() {
   let powerState = useSelector((state: any) => state.drumReducer.power);
   let bankState = useSelector((state: any) => state.drumReducer.bank);
+  let arrOfAudios = useSelector((state: any) => state.drumReducer.arrOfAudios);
   let audio = document.createElement("audio") as HTMLAudioElement;
   audio.volume = 30 / 100;
   document.body.append(audio);
@@ -37,9 +38,10 @@ export default function DrumMachine() {
     { label: "x", display1: "Kick", display2: "Side Stick" },
     { label: "c", display1: "Closed HH", display2: "Snare" },
   ];
+
   return (
     <>
-      <article className="text-white border-2 px-[2rem] border-red-500 grid grid-cols-2 gap-x-[2rem] items-center">
+      <article className="text-white bg-slate-900 rounded-xl px-[2rem] grid grid-cols-2 gap-x-[2rem] items-center">
         <section className="grid grid-cols-3  grid-rows-3 gap-[1rem] text-[1.5rem] font-bold">
           {drumPads.map((e, i) => {
             return (
@@ -48,13 +50,13 @@ export default function DrumMachine() {
                 display1={e.display1}
                 display2={e.display2}
                 label={e.label}
-                btnNumber={i}
+                arrOfAd={arrOfAudios[i]}
               />
             );
           })}
         </section>
         <section className="flex flex-col justify-between items-center space-y-[1rem]">
-          <div className="flex justify-end pr-[1rem] w-full">
+          <div className="flex justify-end mt-[1rem] w-full">
             <img src={logo} alt="logo" height={30} width={30} />
           </div>
           {/*  */}
@@ -81,8 +83,10 @@ export default function DrumMachine() {
             defaultValue={30}
             aria-label="Disabled slider"
             onChange={(e: any) => {
-              let audio = document.querySelector("audio") as HTMLAudioElement;
-              audio.volume = parseFloat(e.target.value) / 100;
+              let audioPanel = document.querySelectorAll("audio");
+              audioPanel.forEach((audio) => {
+                audio.volume = parseFloat(e.target.value) / 100;
+              });
             }}
           />
           {/*  */}
